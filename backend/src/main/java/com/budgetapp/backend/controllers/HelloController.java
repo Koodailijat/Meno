@@ -1,4 +1,4 @@
-package com.budgetapp.backend.Controllers;
+package com.budgetapp.backend.controllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
