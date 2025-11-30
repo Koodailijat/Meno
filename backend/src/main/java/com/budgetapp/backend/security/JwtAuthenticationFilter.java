@@ -2,6 +2,7 @@ package com.budgetapp.backend.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,19 +31,23 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (header != null && header.startsWith("Bearer ")) {
             String jwt = header.substring(7);
 
-            Claims claims = Jwts.parser()
-                    .setSigningKey(SECRET)
-                    .parseClaimsJws(jwt)
-                    .getBody();
+            try {
+                Claims claims = Jwts.parser()
+                        .setSigningKey(SECRET)
+                        .parseClaimsJws(jwt)
+                        .getBody();
 
-            String userId = claims.getSubject();
+                String userId = claims.getSubject();
 
-            UsernamePasswordAuthenticationToken auth =
-                    new UsernamePasswordAuthenticationToken(userId, null, null);
+                UsernamePasswordAuthenticationToken auth =
+                        new UsernamePasswordAuthenticationToken(userId, null, null);
 
-            auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(auth);
 
-            SecurityContextHolder.getContext().setAuthentication(auth);
+            } catch (JwtException ex) {
+                SecurityContextHolder.clearContext();
+            }
         }
 
         chain.doFilter(request, response);
