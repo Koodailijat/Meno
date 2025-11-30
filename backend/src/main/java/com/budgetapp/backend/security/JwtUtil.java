@@ -4,6 +4,7 @@ import com.budgetapp.backend.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -11,7 +12,8 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    private final String SECRET = "S0meExtremelyStrongPrivateJwtSecretKey12345";
+    @Value("${JWT_SECRET}")
+    private String SECRET;
 
     public String generateToken(User user) {
         return Jwts.builder()
