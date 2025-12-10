@@ -44,9 +44,7 @@ function Dashboard() {
         <Card>
           <CardHeader>
             <CardTitle className="text-3xl">Dashboard</CardTitle>
-            <CardDescription>
-              Welcome to your budget dashboard
-            </CardDescription>
+            <CardDescription>Welcome to your budget dashboard</CardDescription>
           </CardHeader>
           <CardContent>
             <p className="text-muted-foreground">Content coming soon...</p>

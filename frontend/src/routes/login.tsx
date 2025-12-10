@@ -22,7 +22,7 @@ function LoginPage() {
   const navigate = useNavigate()
   const { token } = Route.useSearch()
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>(
-    'loading'
+    'loading',
   )
   const [errorMessage, setErrorMessage] = useState<string>('')
 
@@ -47,7 +47,7 @@ function LoginPage() {
     } catch (error) {
       setStatus('error')
       setErrorMessage(
-        error instanceof Error ? error.message : 'Failed to save token'
+        error instanceof Error ? error.message : 'Failed to save token',
       )
     }
   }, [token, navigate])
